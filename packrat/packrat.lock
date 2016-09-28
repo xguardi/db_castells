@@ -1,0 +1,89 @@
+PackratFormat: 1.4
+PackratVersion: 0.4.7.1
+RVersion: 3.3.0
+Repos: CRAN=https://cran.rstudio.com/
+
+Package: BH
+Source: CRAN
+Version: 1.60.0-2
+Hash: be2967bcff307e561d9ba17faf03205c
+
+Package: R6
+Source: CRAN
+Version: 2.1.2
+Hash: c515e41c73294952cbb33ee1c1be5a2d
+
+Package: Rcpp
+Source: CRAN
+Version: 0.12.5
+Hash: 625a95cb4ef523a77ad02e140b715db6
+
+Package: XML
+Source: CRAN
+Version: 3.98-1.4
+Hash: 9f8bc34c3c3d2967c7d25f8945216ffa
+
+Package: curl
+Source: CRAN
+Version: 0.9.7
+Hash: 8a3eaed84ed6a9a188efdeddb231c5de
+
+Package: httr
+Source: CRAN
+Version: 1.2.1
+Hash: 7de1f8f760441881804af7c1ff324340
+Requires: R6, curl, jsonlite, mime, openssl
+
+Package: jsonlite
+Source: CRAN
+Version: 1.0
+Hash: f32817e181c39ede83fdd3e699348b69
+
+Package: magrittr
+Source: CRAN
+Version: 1.5
+Hash: bdc4d48c3135e8f3b399536ddf160df4
+
+Package: mime
+Source: CRAN
+Version: 0.4
+Hash: b08c52dae92a0a11e64a4deea032ec33
+
+Package: openssl
+Source: CRAN
+Version: 0.9.4
+Hash: 5ceb5d83bba44e8e5a764ac6ad32e9fb
+
+Package: packrat
+Source: CRAN
+Version: 0.4.7-1
+Hash: 16ca16d36eb18d1d16113606ecc5c400
+
+Package: rvest
+Source: CRAN
+Version: 0.3.2
+Hash: c69f7526520bad66fd2111ebe8b1364b
+Requires: httr, magrittr, selectr, xml2
+
+Package: selectr
+Source: CRAN
+Version: 0.2-3
+Hash: a5d1ba4a21c2a7ab66c21779ae26da84
+Requires: XML, stringr
+
+Package: stringi
+Source: CRAN
+Version: 1.1.1
+Hash: 48f2afc5dfecb65ba32a87d38b3533ff
+
+Package: stringr
+Source: CRAN
+Version: 1.0.0
+Hash: 2676dd5f88890910962b733b0f9540e1
+Requires: magrittr, stringi
+
+Package: xml2
+Source: CRAN
+Version: 1.0.0
+Hash: 115dce64d9d154b13ded64dcc17ca83d
+Requires: BH, Rcpp
