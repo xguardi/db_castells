@@ -14,7 +14,7 @@ colles <- main_page %>%
   html_attr("value")
 
 # loop over all years and colles
-for(year in 2000:2001) {
+for(year in 2000:2000) {
   
   # for every year create an output folder
   if(!dir.exists(paste0('data/', year))) {

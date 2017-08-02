@@ -73,7 +73,12 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
         # Table of castells
         files <- table_castells[[i]] %>%
           html_nodes("tr")
+        # we use a dummy_counter of each castell so we can
+        # avoid removing two equal castells later on when
+        # we detect duplicates
+        log_dummy <- 0
         for(j in 1:length(files)) {
+          log_dummy <- log_dummy + 1
           columnes <- files[[j]] %>%
             html_nodes("td") %>%
             html_text() %>%
@@ -83,6 +88,7 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
           } else {
             if(columnes[1] != '') {
               log_colla <- columnes[1]
+              log_dummy <- 1
             } 
           } 
           log <- paste(log_data, 
@@ -91,6 +97,7 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
                       log_colla, 
                       columnes[2], 
                       columnes[3], 
+                      log_dummy,
                       sep = "\t")
           # write record
           write(log, file = filename, sep = ";", append = TRUE)
