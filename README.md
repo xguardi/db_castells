@@ -1,4 +1,4 @@
-# CCCC castells database scrapper
+# CCCC database scraper
 
 All castells ever done.
 

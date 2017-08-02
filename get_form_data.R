@@ -1,3 +1,4 @@
+library(tidyverse)
 library(httr)
 library(xml2)
 library(stringr)
@@ -48,7 +49,6 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
     # if we still have data
     if (length(diades) > 0) {
       
-      if (debug) print(paste0("Num. diades: ", length(diades)))
       if (debug) print(page_index)
       page_index <- page_index + 1
       
@@ -97,11 +97,22 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
         }
       }
       
-    } else {
+      max_pagination <- r %>% 
+        html_node('div.pagination-nums') %>% 
+        html_nodes('input') %>%
+        html_attr('value') %>%
+        max()
+      if(is.na(max_pagination)) max_pagination <- 1
+      # if (debug) print(paste0('Max page: ', max_pagination))
       
+      if(page_index > max_pagination) {
+        if (debug) print("No more pages.")
+        more_pages <- FALSE 
+      }
+      
+    } else {
       if (debug) print("No more pages.")
       more_pages <- FALSE 
-      
     } # end diades
   } # end while more_pages
 
