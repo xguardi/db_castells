@@ -2,7 +2,8 @@ library(rvest)
 
 source('get_form_data.R')
 
-blacklist <- c('capgrossos2001')
+blacklist <- c('capgrossos2001', 'capgrossos2007', 'xerrics2007', 'matossers2008',
+               'xerrics2008')
 
 # entry page
 session <- html_session("http://www.cccc.cat/base-de-dades")
@@ -14,7 +15,7 @@ colles <- main_page %>%
   html_attr("value")
 
 # loop over all years and colles
-for(year in 2000:2000) {
+for(year in 2009:2016) {
   
   # for every year create an output folder
   if(!dir.exists(paste0('data/', year))) {
