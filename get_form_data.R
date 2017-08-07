@@ -2,6 +2,7 @@ library(tidyverse)
 library(httr)
 library(xml2)
 library(stringr)
+library(rvest)
 
 # fills the form and scraps the data for a given colla and year
 get_form_data <- function(colla, year, filename, debug = FALSE) {
@@ -32,14 +33,21 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
               body = fields, 
               encode = 'form',
               user_agent('libcurl/7.43.0 r-curl/0.9.7 httr/1.2.1'))
+    # DEBUG
+    # raw content
+    # bin <- content(r, 'raw')
+    # writeBin(bin, "src.html")
     # read as xml
     r <- content(r, as = "parsed", encoding = "utf-8")
     
     # diades
+    # diades <- r %>% 
+    #   html_nodes(xpath = '/html/body/div[2]/div[1]/div[2]/div/div[2]/div[3]/div/div/div[3]') %>%
+    #   html_nodes('div') %>%
+    #   head(-1) # remove last element
     diades <- r %>% 
       html_nodes(xpath = '/html/body/div[2]/div[1]/div[2]/div/div[2]/div[3]/div/div/div[3]') %>%
-      html_nodes('div') %>%
-      head(-1) # remove last element
+      html_nodes(xpath = 'table/preceding-sibling::div[1]')
     
     # table of castells
     table_castells <- r %>% 
@@ -60,6 +68,8 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
         
         # Date
         log_data <- str_sub(s, 1, 10)
+        if (debug) print(log_data)
+        
         
         # Name and location
         s <- str_sub(s, 11, str_length(s)) %>%
@@ -67,8 +77,10 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
           str_split(',')
         log_nom <- s[[1]][1] %>%
           str_trim()
-        log_poblacio <- s[[1]][[2]] %>%
+        log_poblacio <- tryCatch({
+          s[[1]][[2]] %>%
           str_trim()
+        }, error = function(e) {'desconegut'})
         
         # Table of castells
         files <- table_castells[[i]] %>%
