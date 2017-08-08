@@ -6,8 +6,12 @@ log_files <- list.files('data/', pattern = ".tsv$", recursive = TRUE)
 # read and join all logs
 data <- data.frame()
 for(file in log_files) {
-  tmp_data <- read_tsv(file = paste0('data/', file), 
-                       col_names = c('data', 'poblacio', 'diada', 'colla', 'castell', 'status', 'dummy'))
+  print(paste0('Parsing ', file))
+  tmp_data <- read_delim(file = paste0('data/', file), 
+                         delim = "\t",
+                         quote = "",
+                         col_types = cols(), # suppress column type match message
+                         col_names = c('data', 'poblacio', 'diada', 'colla', 'castell', 'status', 'dummy'))
   data <- rbind(data, tmp_data)
 }
 
