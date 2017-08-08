@@ -22,7 +22,7 @@ for(file in log_files) {
 # the same castell performed twice on the same diada
 data <- data %>%
   distinct(data, poblacio, diada, colla, castell, status, dummy) %>%
-  left_join(castells, by = 'castells')
+  left_join(castells, by = 'castell')
 
 
 
