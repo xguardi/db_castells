@@ -24,5 +24,5 @@ data <- data %>%
   distinct(data, poblacio, diada, colla, castell, status, dummy) %>%
   left_join(castells, by = 'castell')
 
-
-
+# save it as RData
+save(data, file = "data/bdcj.RData")

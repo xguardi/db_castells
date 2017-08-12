@@ -88,33 +88,37 @@ get_form_data <- function(colla, year, filename, debug = FALSE) {
         # we use a dummy_counter of each castell so we can
         # avoid removing two equal castells later on when
         # we detect duplicates
-        log_dummy <- 0
-        for(j in 1:length(files)) {
-          log_dummy <- log_dummy + 1
-          columnes <- files[[j]] %>%
-            html_nodes("td") %>%
-            html_text() %>%
-            str_trim()
-          if (j == 1) { 
-            log_colla <- columnes[1]
-          } else {
-            if(columnes[1] != '') {
+        
+        # as long as the table is not empty
+        if (length(files) > 0) {
+          log_dummy <- 0
+          for(j in 1:length(files)) {
+            log_dummy <- log_dummy + 1
+            columnes <- files[[j]] %>%
+              html_nodes("td") %>%
+              html_text() %>%
+              str_trim()
+            if (j == 1) { 
               log_colla <- columnes[1]
-              log_dummy <- 1
+            } else {
+              if(columnes[1] != '') {
+                log_colla <- columnes[1]
+                log_dummy <- 1
+              } 
             } 
-          } 
-          log <- paste(log_data, 
-                      log_poblacio, 
-                      log_nom, 
-                      log_colla, 
-                      columnes[2], 
-                      columnes[3], 
-                      log_dummy,
-                      sep = "\t")
-          # write record
-          write(log, file = filename, sep = ";", append = TRUE)
-        }
-      }
+            log <- paste(log_data, 
+                        log_poblacio, 
+                        log_nom, 
+                        log_colla, 
+                        columnes[2], 
+                        columnes[3], 
+                        log_dummy,
+                        sep = "\t")
+            # write record
+            write(log, file = filename, sep = ";", append = TRUE)
+          } # end loop files
+        } # end if files
+      } # end loop diades
       
       max_pagination <- r %>% 
         html_node('div.pagination-nums') %>% 
