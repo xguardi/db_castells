@@ -1,5 +1,7 @@
 library(tidyverse)
 
+source('fix_encoding.R')
+
 # Read all log files from under the data/ folder
 log_files <- list.files('data/', pattern = ".tsv$", recursive = TRUE)
 
@@ -31,8 +33,14 @@ data_refined <- data %>%
                            status == "Carregat" ~ punts_carregat,
                            status == "Intent" ~ as.integer(0),
                            status == "Intent desmuntat" ~ as.integer(0))) %>%
-  select(data, poblacio, diada, colla, castell, status, score, dummy)
+  select(data, poblacio, diada, colla, castell, status, score, dummy) %>%
+  mutate(data = as.Date(data, "%d/%m/%Y"))
+
+# fix encoding problems
+data_refined$colla <- fix_encoding(data_refined$colla)
+data_refined$poblacio <- fix_encoding(data_refined$poblacio)
 
 # save it as RData
-save(data_refined, file = "data/bdcj.RData")
+data <- data_refined
+save(data, file = "data/bdcj.RData")
 # load("data/bdcj.RData")
