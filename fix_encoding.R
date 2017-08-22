@@ -43,5 +43,4 @@ fix_encoding <- function(x) {
 # str_match(y, "Sant MagÃ", "Sant Magí")
 # str_replace_all(y, "Sant MagÃ", "Sant Magí")
 # str_conv(y, 'ISO-8859-1')
-# gsub(y, "Sant MagÃ� ", "Sant Magí")
 
