@@ -1,0 +1,7 @@
+packrat/lib*/
+.Rproj.user
+data/*
+.DS_Store
+.RData
+.Rhistory
+*.Rproj

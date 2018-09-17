@@ -12,6 +12,7 @@ library(ggthemes)
 # load database 
 load("../data/bdcj.RData", verbose = T)
 ```
+
 Castells totals
 
 ```{r}
@@ -23,7 +24,12 @@ ggplot(plot_data, aes(x = as.integer(year), y = score)) +
   scale_y_continuous(name = "Punts totals") +
   scale_x_continuous(breaks = seq(1925, 2100, 10)) +
   geom_line(size = 1.1) +
-  theme_fivethirtyeight()
+  theme_fivethirtyeight() + 
+  labs(title = "Valor acumulat dels castells fet per any",
+       subtitle = "Un per un",
+       caption = "FONT: BASE DE DADES COORDINADORA - JOVE TARRAGONA (BDCJ)") +
+  theme(plot.caption = element_text(margin = margin(t=20,10,10,10),
+                                    size = rel(0.65)))
 ```
 
 Numero de colles
@@ -34,11 +40,12 @@ plot_data <- data %>%
   group_by(year) %>%
   summarise(num_colles = length(unique(colla)))
 ggplot(plot_data, aes(x = as.integer(year), y = num_colles)) + 
-  scale_y_continuous(name = "Punts totals per colla") +
+  scale_y_continuous(name = "Colles", breaks = seq(0,100, 10)) +
   scale_x_continuous(breaks = seq(1925, 2100, 10)) +
   geom_line(size = 1.1) +
   theme_fivethirtyeight()
 ```
+
 Castells normalitzats per colla
 
 ```{r}
@@ -52,3 +59,5 @@ ggplot(plot_data, aes(x = as.integer(year), y = score/num_colles)) +
   geom_line(size = 1.1) +
   theme_fivethirtyeight()
 ```
+
+El sostre casteller per any
